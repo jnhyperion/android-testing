@@ -16,6 +16,14 @@
 
 package com.example.android.testing.notes.notes;
 
+import android.os.SystemClock;
+import android.support.test.filters.LargeTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+
 import com.example.android.testing.notes.R;
 
 import org.hamcrest.Description;
@@ -24,13 +32,6 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.View;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -120,10 +121,10 @@ public class NotesScreenTest {
         // Save the note
         onView(withId(R.id.fab_add_notes)).perform(click());
 
+        SystemClock.sleep(1000);
         // Scroll notes list to added note, by finding its description
         onView(withId(R.id.notes_list)).perform(
                 scrollTo(hasDescendant(withText(newNoteDescription))));
-
         // Verify note is displayed on screen
         onView(withItemText(newNoteDescription)).check(matches(isDisplayed()));
     }

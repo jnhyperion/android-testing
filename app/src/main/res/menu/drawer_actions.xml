@@ -21,4 +21,8 @@
         android:id="@+id/statistics_navigation_menu_item"
         android:icon="@drawable/ic_statistics"
         android:title="@string/statistics_title" />
+    <item
+        android:id="@+id/run_test_navigation_menu_item"
+        android:icon="@drawable/ic_statistics"
+        android:title="Run Espresso" />
 </menu>

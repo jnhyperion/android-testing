@@ -16,10 +16,7 @@
 
 package com.example.android.testing.notes.notes;
 
-import com.example.android.testing.notes.R;
-import com.example.android.testing.notes.statistics.StatisticsActivity;
-import com.example.android.testing.notes.util.EspressoIdlingResource;
-
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
@@ -34,6 +31,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.example.android.testing.notes.R;
+import com.example.android.testing.notes.statistics.StatisticsActivity;
+import com.example.android.testing.notes.util.EspressoIdlingResource;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -93,6 +94,9 @@ public class NotesActivity extends AppCompatActivity {
                             case R.id.statistics_navigation_menu_item:
                                 startActivity(new Intent(NotesActivity.this, StatisticsActivity.class));
                                 break;
+                            case R.id.run_test_navigation_menu_item:
+                                runInstrument();
+                                break;
                             default:
                                 break;
                         }
@@ -107,5 +111,15 @@ public class NotesActivity extends AppCompatActivity {
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {
         return EspressoIdlingResource.getIdlingResource();
+    }
+
+    private void runInstrument(){
+        Bundle bundle = new Bundle();
+        bundle.putString("class", "com.example.android.testing.notes.suite.LargeTest");
+        startInstrumentation(
+                new ComponentName("com.example.android.testing.notes.test",
+                        "android.support.test.runner.AndroidJUnitRunner"),
+                null,
+                bundle);
     }
 }
